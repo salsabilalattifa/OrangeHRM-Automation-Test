@@ -12,5 +12,5 @@ Link Test Case : https://docs.google.com/spreadsheets/d/1LG8Xk7_cFvqBmQ1_X4rbrcN
 4. Tugas 17 : https://github.com/salsabilalattifa/OrangeHRM-Automation-Test/tree/main/cypress/e2e/tugas17 <br>
    OrangeHRM Web Automation Cypress dengan Fixtures, POM, Action, dan Assertion.<br><br>
 
-5. Tugas 18 : <br>
+5. Tugas 18 : https://github.com/salsabilalattifa/OrangeHRM-Automation-Test/tree/main/cypress/e2e/tugas18<br>
    API Automation menggunakan Cypress dari web : https://fakeapi.platzi.com/en/rest/categories.
