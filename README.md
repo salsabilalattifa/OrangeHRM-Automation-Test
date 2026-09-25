@@ -5,8 +5,9 @@ Automation Test menggunakan Cypress pada web OrangeHRM dengan link berikut : htt
 
 Link Test Case : https://docs.google.com/spreadsheets/d/1LG8Xk7_cFvqBmQ1_X4rbrcNzI4-vmzuWRZeupHFhNXk/edit?gid=0#gid=0
 
-1. Quiz 3 : <br>
-2. Tugas 16 : <br>
+1. Quiz 3 : https://github.com/salsabilalattifa/OrangeHRM-Automation-Test/tree/main/cypress/e2e/quiz3<br>
+
+2. Tugas 16 : https://github.com/salsabilalattifa/OrangeHRM-Automation-Test/tree/main/cypress/e2e/tugas16<br>
    Cypress Intercept.<br><br>
 
 4. Tugas 17 : https://github.com/salsabilalattifa/OrangeHRM-Automation-Test/tree/main/cypress/e2e/tugas17 <br>
