@@ -11,7 +11,7 @@ class loginPage {
     // Method untuk akses web memalui link
     visitWeb () {
         cy.visit(baseurl)
-        cy.wait(5000)
+        cy.wait(3000)
         return this
     }
     
