@@ -1,23 +1,22 @@
 {
     "createData": {
-        "name" : "Jambrong",
+        "name" : "Jambrong-19",
         "image" : "https://picsum.photos/1300/1200"
     },
     "updateData": {
-        "name" : "Kepin",
+        "name" : "Kepin-19",
         "image" : "https://picsum.photos/600/400"
     },
     "updateSlug": {
-        "slug" : "Jambrong-baru"
+        "slug" : "Jambrong-baru-19"
     },
     "sampleID": {
         "validID" : 4,
-        "invalidID" : 500,
+        "invalidID" : 1230,
         "notNumber" : "testID",
-        "deleteValidID" : 18,
         "deleteInvalidID" : 9898
     },
     "sampleData": {
-        "sampleSlug" : "sepatu-sandaal"
+        "sampleSlug" : "electronics"
     }
 }

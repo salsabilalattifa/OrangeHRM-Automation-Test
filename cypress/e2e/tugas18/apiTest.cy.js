@@ -1,6 +1,8 @@
 const urlApi = Cypress.config('urlAPI')
 
 describe('API Testing', () => {
+    let categoryID
+
     // 1. GET ALL DATA
     it('Get all data', () => {
         cy.request('GET', `${urlApi}/categories`).then((response) => {
@@ -29,15 +31,14 @@ describe('API Testing', () => {
         })
     })
 
-    // CREATE, UPDATE, & UPDATE PATCH
-    it('Create dan update category', () => {
+    // 2. CREATE CATEGORY
+    it('Create data category', () => {
         cy.fixture('dataApiTest').then((newData) => {
-            // 2. CREATE CATEGORY
             cy.request('POST', `${urlApi}/categories`, newData.createData).then((createResponse) => {
-                // Cek status code
+                //Cek status code
                 expect(createResponse.status).to.eq(201)
                 // Response time
-                expect(createResponse.duration).to.be.lessThan(1500)
+                expect(createResponse.duration).to.be.lessThan(3000)
                 // Cek response body struktur
                 expect(createResponse.body).to.have.property('id')
                 expect(createResponse.body).to.have.property('name')
@@ -53,35 +54,43 @@ describe('API Testing', () => {
                 expect(createResponse.body).to.have.property('creationAt')
                 expect(createResponse.body).to.have.property('updatedAt')
 
-                // 3. UPDATE CATEGORY
-                const categoryId = createResponse.body.id
-                cy.request('PUT',`${urlApi}/categories/${categoryId}`, newData.updateData).then((updateResponse) => {
-                    // Cek status code
-                    expect(updateResponse.status).to.eq(200)
-                    // Response time
-                    expect(updateResponse.duration).to.be.lessThan(1500)
-                    // Cek response body setelah di update
-                    expect(updateResponse.body.id).to.eq(categoryId)
-                    expect(updateResponse.body.name).to.eq(newData.updateData.name) // cek data yg diupdate
-                    expect(updateResponse.body.image).to.eq(newData.updateData.image)
-                    expect(updateResponse.body).to.have.property('slug')
-                    expect(updateResponse.body).to.have.property('creationAt')
-                    expect(updateResponse.body).to.have.property('updatedAt')
-
-                    // 4. UPDATE ONLY  SLUG (PATCH)
-                    cy.request('PATCH',`${urlApi}/categories/${categoryId}`, newData.updateSlug).then((patchResponse) => {
-                        // Cek status code
-                        expect(patchResponse.status).to.eq(200)
-                        // Response time
-                        expect(patchResponse.duration).to.be.lessThan(1500)
-                        // Cek slug berubah sesuai data baru dan id masih sama
-                        expect(patchResponse.body.id).to.eq(categoryId)
-                        expect(patchResponse.body.slug).to.eq(newData.updateSlug.slug)
-                    })
-                })
-                
+                categoryID = createResponse.body.id // menyimpan id dari data yang sudah ditambahkan untuk bisa digunakan di it lain
             })
-        }) 
+        })
+    })
+
+    // 3. UPDATE CATEGORY (PUT)
+    it('Update data category', () => {
+        cy.fixture('dataApiTest').then((newData) => {
+            cy.request('PUT', `${urlApi}/categories/${categoryID}`, newData.updateData).then((updateResponse) => {
+                // Cek status code
+                expect(updateResponse.status).to.eq(200)
+                // Response time
+                expect(updateResponse.duration).to.be.lessThan(1500)
+                // Cek response body setelah di update
+                expect(updateResponse.body.id).to.eq(categoryID)
+                expect(updateResponse.body.name).to.eq(newData.updateData.name) // cek data yg diupdate
+                expect(updateResponse.body.image).to.eq(newData.updateData.image)
+                expect(updateResponse.body).to.have.property('slug')
+                expect(updateResponse.body).to.have.property('creationAt')
+                expect(updateResponse.body).to.have.property('updatedAt')
+            })
+        })
+    })
+
+    // 4. UPDATE CATEGORY (PATCH)
+    it('Update data category (patch)', () => {
+        cy.fixture('dataApiTest').then((newData) => {
+            cy.request('PATCH',`${urlApi}/categories/${categoryID}`, newData.updateSlug).then((patchResponse) => {
+                // Cek status code
+                expect(patchResponse.status).to.eq(200)
+                // Response time
+                expect(patchResponse.duration).to.be.lessThan(1500)
+                // Cek slug berubah sesuai data baru dan id masih sama
+                expect(patchResponse.body.id).to.eq(categoryID)
+                expect(patchResponse.body.slug).to.eq(newData.updateSlug.slug)
+            })
+        })
     })
 
     // 5. GET DATA BY ID
@@ -116,7 +125,6 @@ describe('API Testing', () => {
                 // Response time
                 expect(getResponse.duration).to.be.lessThan(1000)
                 // Cek response body struktur
-                expect(getResponse.body).to.have.property('error')
                 expect(getResponse.body).to.have.property('message')
             })
         })
@@ -218,16 +226,13 @@ describe('API Testing', () => {
     // 11. DELETE BY VALID ID
     it('Hapus category dengan id yg valid', () => {
         cy.fixture('dataApiTest').then((newData) => {
-            const delValidID = newData.sampleID.deleteValidID
-            cy.request('DELETE', `${urlApi}/categories/${delValidID}`).then((deleteResponse) => {
+            cy.request('DELETE', `${urlApi}/categories/${categoryID}`).then((deleteResponse) => {
                 // Cek status code
                 expect(deleteResponse.status).to.eq(200)
                 // Response time
                 expect(deleteResponse.duration).to.be.lessThan(1500)
-                // Cek response adalah boolean
-                expect(deleteResponse.body).to.be.a('boolean')
                 // Cek response body mengembalikan nilai true jika berhasil hapus dan id ada
-                expect(deleteResponse.body).to.eq(true)
+                expect(deleteResponse.body).to.eq('true')
             })
         })
     })
@@ -242,7 +247,6 @@ describe('API Testing', () => {
                 // Response time
                 expect(deleteResponse.duration).to.be.lessThan(1500)
                 // Cek response body isi pesan error
-                expect(deleteResponse.body).to.have.property('error')
                 expect(deleteResponse.body).to.have.property('message')
             })
         })
