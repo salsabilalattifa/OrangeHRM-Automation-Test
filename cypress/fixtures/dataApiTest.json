@@ -1,0 +1,23 @@
+{
+    "createData": {
+        "name" : "Jambrong",
+        "image" : "https://picsum.photos/1300/1200"
+    },
+    "updateData": {
+        "name" : "Kepin",
+        "image" : "https://picsum.photos/600/400"
+    },
+    "updateSlug": {
+        "slug" : "Jambrong-baru"
+    },
+    "sampleID": {
+        "validID" : 4,
+        "invalidID" : 500,
+        "notNumber" : "testID",
+        "deleteValidID" : 18,
+        "deleteInvalidID" : 9898
+    },
+    "sampleData": {
+        "sampleSlug" : "sepatu-sandaal"
+    }
+}
